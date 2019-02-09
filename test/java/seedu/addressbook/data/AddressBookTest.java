@@ -38,6 +38,8 @@ public class AddressBookTest {
 
     private AddressBook defaultAddressBook;
     private AddressBook emptyAddressBook;
+    private AddressBook unsortedAddressBook;
+    private AddressBook sortedAddressBook;
 
 
     @Before
@@ -73,6 +75,16 @@ public class AddressBookTest {
 
         emptyAddressBook = new AddressBook();
         defaultAddressBook = new AddressBook(new UniquePersonList(aliceBetsy, bobChaplin));
+        
+        unsortedAddressBook = new AddressBook();
+        unsortedAddressBook.addPerson(charlieDouglas);
+        unsortedAddressBook.addPerson(aliceBetsy);
+        unsortedAddressBook.addPerson(davidElliot);
+        
+        sortedAddressBook = new AddressBook();
+        sortedAddressBook.addPerson(aliceBetsy);
+        sortedAddressBook.addPerson(charlieDouglas);
+        sortedAddressBook.addPerson(davidElliot);
     }
 
     @Rule
@@ -120,6 +132,20 @@ public class AddressBookTest {
         thrown.expect(PersonNotFoundException.class);
         defaultAddressBook.removePerson(charlieDouglas);
     }
+    
+    @Test
+    public void sort_unsortedAddressBook_sortsAddressBook() {
+        unsortedAddressBook.sort();
+        assertAddressBookEqual(unsortedAddressBook, sortedAddressBook);
+    }
+    
+    @Test
+    public void sort_addPersonAfterSort_addsNormally() throws Exception {
+        unsortedAddressBook.sort();
+        unsortedAddressBook.addPerson(bobChaplin);
+        sortedAddressBook.addPerson(bobChaplin);
+        assertAddressBookEqual(unsortedAddressBook, sortedAddressBook);
+    }
 
     @Test
     public void clear() {
@@ -134,5 +160,9 @@ public class AddressBookTest {
         UniquePersonList personsToCheck = new UniquePersonList(aliceBetsy, bobChaplin);
 
         assertTrue(isIdentical(allPersons, personsToCheck));
+    }
+    
+    public static void assertAddressBookEqual(AddressBook ab1, AddressBook ab2) {
+        assertTrue(ab1.getAllPersons().equals(ab2.getAllPersons()));
     }
 }
