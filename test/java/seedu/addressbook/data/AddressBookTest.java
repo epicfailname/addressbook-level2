@@ -2,9 +2,6 @@ package seedu.addressbook.data;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.addressbook.util.TestUtil.getSize;
-import static seedu.addressbook.util.TestUtil.isEmpty;
-import static seedu.addressbook.util.TestUtil.isIdentical;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +11,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import seedu.addressbook.util.TestUtil;
 
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
@@ -117,12 +115,12 @@ public class AddressBookTest {
 
     @Test
     public void removePerson_personExists_removesNormally() throws Exception {
-        int numberOfPersonsBeforeRemoval = getSize(defaultAddressBook.getAllPersons());
+        int numberOfPersonsBeforeRemoval = TestUtil.getSize(defaultAddressBook.getAllPersons());
         defaultAddressBook.removePerson(aliceBetsy);
 
         assertFalse(defaultAddressBook.containsPerson(aliceBetsy));
 
-        int numberOfPersonsAfterRemoval = getSize(defaultAddressBook.getAllPersons());
+        int numberOfPersonsAfterRemoval = TestUtil.getSize(defaultAddressBook.getAllPersons());
         assertTrue(numberOfPersonsAfterRemoval == numberOfPersonsBeforeRemoval - 1);
 
     }
@@ -138,6 +136,13 @@ public class AddressBookTest {
         unsortedAddressBook.sort();
         assertAddressBookEqual(unsortedAddressBook, sortedAddressBook);
     }
+
+    @Test
+    public void sort_sortedAddressBook_noChangeToAddressBook() {
+        AddressBook sortedAddressBookClone = TestUtil.clone(sortedAddressBook);
+        sortedAddressBookClone.sort();
+        assertAddressBookEqual(sortedAddressBook, sortedAddressBookClone);
+    }
     
     @Test
     public void sort_addPersonAfterSort_addsNormally() throws Exception {
@@ -151,7 +156,7 @@ public class AddressBookTest {
     public void clear() {
         defaultAddressBook.clear();
 
-        assertTrue(isEmpty(defaultAddressBook.getAllPersons()));
+        assertTrue(TestUtil.isEmpty(defaultAddressBook.getAllPersons()));
     }
 
     @Test
@@ -159,7 +164,7 @@ public class AddressBookTest {
         UniquePersonList allPersons = defaultAddressBook.getAllPersons();
         UniquePersonList personsToCheck = new UniquePersonList(aliceBetsy, bobChaplin);
 
-        assertTrue(isIdentical(allPersons, personsToCheck));
+        assertTrue(TestUtil.isIdentical(allPersons, personsToCheck));
     }
     
     public static void assertAddressBookEqual(AddressBook ab1, AddressBook ab2) {
