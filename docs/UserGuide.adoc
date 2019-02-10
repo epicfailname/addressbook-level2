@@ -111,6 +111,24 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+== Sorting address book: `sort`
+
+Sorts the address book alphabetically, by name. +
+Format: `sort`
+
+****
+Sorts the address book by name.
+Persistent, meaning the in subsequent `list` and `find` calls, persons are still sorted.
+Does not garuntee address book is sorted after adding additional persons after `sort`.
+****
+
+Examples:
+
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` +
+ `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend` +
+ `sort` +
+Sorts the address book, such that Betsy is listed before John in subsequent `list` or `find` calls.
+
 == View non-private details of a person : `view`
 
 Displays the non-private details of the specified person. +
