@@ -27,7 +27,7 @@ public class SortCommandTest {
     Command sortCommand;
     
     private Person aliceBetsy;
-    private Person bobChaplin;
+    private Person bobChaplinLowerCase;
     private Person charlieDouglas;
     private Person davidElliot;
 
@@ -46,7 +46,7 @@ public class SortCommandTest {
                 new Address("8 Computing Drive, Singapore", false),
                 Collections.emptySet());
 
-        bobChaplin     = new Person(new Name("Bob Chaplin"),
+        bobChaplinLowerCase = new Person(new Name("bob chaplin"),
                 new Phone("94321500", false),
                 new Email("bob@nusgreyhats.org", false),
                 new Address("9 Computing Drive", false),
@@ -67,12 +67,14 @@ public class SortCommandTest {
         emptyAddressBook = new AddressBook();
 
         unsortedAddressBook = new AddressBook();
+        unsortedAddressBook.addPerson(bobChaplinLowerCase);
         unsortedAddressBook.addPerson(charlieDouglas);
         unsortedAddressBook.addPerson(aliceBetsy);
         unsortedAddressBook.addPerson(davidElliot);
 
         sortedAddressBook = new AddressBook();
         sortedAddressBook.addPerson(aliceBetsy);
+        sortedAddressBook.addPerson(bobChaplinLowerCase);
         sortedAddressBook.addPerson(charlieDouglas);
         sortedAddressBook.addPerson(davidElliot);
     }
